@@ -145,30 +145,159 @@ class DashboardAPI {
         const activities: any[] = [];
 
         bookingsRes.data?.bookings?.forEach((booking: any) => {
-          activities.push({
-            id: booking.id,
-            type: 'booking',
-            message: `New booking for ${booking.variant} by ${booking.customerName}`,
-            timestamp: booking.createdAt,
-          });
+          // Show advisor remarks
+          if (booking.advisorRemarks) {
+            activities.push({
+              id: `${booking.id}-advisor`,
+              type: 'booking',
+              message: `Advisor: ${booking.advisorRemarks}`,
+              timestamp: booking.createdAt,
+            });
+          }
+          
+          // Show team lead remarks
+          if (booking.teamLeadRemarks) {
+            activities.push({
+              id: `${booking.id}-teamlead`,
+              type: 'booking',
+              message: `Team Lead: ${booking.teamLeadRemarks}`,
+              timestamp: booking.createdAt,
+            });
+          }
+          
+          // Show sales manager remarks
+          if (booking.salesManagerRemarks) {
+            activities.push({
+              id: `${booking.id}-salesmanager`,
+              type: 'booking',
+              message: `Sales Manager: ${booking.salesManagerRemarks}`,
+              timestamp: booking.createdAt,
+            });
+          }
+          
+          // Show general manager remarks
+          if (booking.generalManagerRemarks) {
+            activities.push({
+              id: `${booking.id}-generalmanager`,
+              type: 'booking',
+              message: `General Manager: ${booking.generalManagerRemarks}`,
+              timestamp: booking.createdAt,
+            });
+          }
+          
+          // Show admin remarks
+          if (booking.adminRemarks) {
+            activities.push({
+              id: `${booking.id}-admin`,
+              type: 'booking',
+              message: `Admin: ${booking.adminRemarks}`,
+              timestamp: booking.createdAt,
+            });
+          }
         });
 
         enquiriesRes.data?.enquiries?.forEach((enquiry: any) => {
-          activities.push({
-            id: enquiry.id,
-            type: 'enquiry',
-            message: `New enquiry from ${enquiry.customerName} for ${enquiry.variant || 'vehicle'}`,
-            timestamp: enquiry.createdAt,
-          });
+          // Show advisor remarks
+          if (enquiry.advisorRemarks) {
+            activities.push({
+              id: `${enquiry.id}-advisor`,
+              type: 'enquiry',
+              message: `Advisor: ${enquiry.advisorRemarks}`,
+              timestamp: enquiry.createdAt,
+            });
+          }
+          
+          // Show team lead remarks
+          if (enquiry.teamLeadRemarks) {
+            activities.push({
+              id: `${enquiry.id}-teamlead`,
+              type: 'enquiry',
+              message: `Team Lead: ${enquiry.teamLeadRemarks}`,
+              timestamp: enquiry.createdAt,
+            });
+          }
+          
+          // Show sales manager remarks
+          if (enquiry.salesManagerRemarks) {
+            activities.push({
+              id: `${enquiry.id}-salesmanager`,
+              type: 'enquiry',
+              message: `Sales Manager: ${enquiry.salesManagerRemarks}`,
+              timestamp: enquiry.createdAt,
+            });
+          }
+          
+          // Show general manager remarks
+          if (enquiry.generalManagerRemarks) {
+            activities.push({
+              id: `${enquiry.id}-generalmanager`,
+              type: 'enquiry',
+              message: `General Manager: ${enquiry.generalManagerRemarks}`,
+              timestamp: enquiry.createdAt,
+            });
+          }
+          
+          // Show admin remarks
+          if (enquiry.adminRemarks) {
+            activities.push({
+              id: `${enquiry.id}-admin`,
+              type: 'enquiry',
+              message: `Admin: ${enquiry.adminRemarks}`,
+              timestamp: enquiry.createdAt,
+            });
+          }
         });
 
         quotationsRes.data?.quotations?.forEach((quotation: any) => {
-          activities.push({
-            id: quotation.id,
-            type: 'quotation',
-            message: `Quotation ${quotation.status} for ${quotation.enquiry?.customerName || 'customer'}`,
-            timestamp: quotation.createdAt,
-          });
+          // Show advisor remarks
+          if (quotation.advisorRemarks) {
+            activities.push({
+              id: `${quotation.id}-advisor`,
+              type: 'quotation',
+              message: `Advisor: ${quotation.advisorRemarks}`,
+              timestamp: quotation.createdAt,
+            });
+          }
+          
+          // Show team lead remarks
+          if (quotation.teamLeadRemarks) {
+            activities.push({
+              id: `${quotation.id}-teamlead`,
+              type: 'quotation',
+              message: `Team Lead: ${quotation.teamLeadRemarks}`,
+              timestamp: quotation.createdAt,
+            });
+          }
+          
+          // Show sales manager remarks
+          if (quotation.salesManagerRemarks) {
+            activities.push({
+              id: `${quotation.id}-salesmanager`,
+              type: 'quotation',
+              message: `Sales Manager: ${quotation.salesManagerRemarks}`,
+              timestamp: quotation.createdAt,
+            });
+          }
+          
+          // Show general manager remarks
+          if (quotation.generalManagerRemarks) {
+            activities.push({
+              id: `${quotation.id}-generalmanager`,
+              type: 'quotation',
+              message: `General Manager: ${quotation.generalManagerRemarks}`,
+              timestamp: quotation.createdAt,
+            });
+          }
+          
+          // Show admin remarks
+          if (quotation.adminRemarks) {
+            activities.push({
+              id: `${quotation.id}-admin`,
+              type: 'quotation',
+              message: `Admin: ${quotation.adminRemarks}`,
+              timestamp: quotation.createdAt,
+            });
+          }
         });
 
         // Sort by timestamp descending
