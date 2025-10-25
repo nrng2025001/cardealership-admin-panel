@@ -38,11 +38,6 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
     status: 'OPEN' as Enquiry['status'],
     assignedEmployeeId: '',
     notes: '',
-    advisorRemarks: '',
-    teamLeadRemarks: '',
-    salesManagerRemarks: '',
-    generalManagerRemarks: '',
-    adminRemarks: '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -59,11 +54,6 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
         status: enquiry.status,
         assignedEmployeeId: enquiry.assignedEmployeeId || '',
         notes: enquiry.notes || '',
-        advisorRemarks: enquiry.advisorRemarks || '',
-        teamLeadRemarks: enquiry.teamLeadRemarks || '',
-        salesManagerRemarks: enquiry.salesManagerRemarks || '',
-        generalManagerRemarks: enquiry.generalManagerRemarks || '',
-        adminRemarks: enquiry.adminRemarks || '',
       });
     }
   }, [enquiry]);
@@ -236,73 +226,6 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             value={formData.notes}
             onChange={(e) => handleChange('notes', e.target.value)}
             placeholder="Additional notes about the enquiry..."
-          />
-        </Box>
-
-        {/* Remarks Section */}
-        <Box sx={{ gridColumn: '1 / -1' }}>
-          <Typography variant="h6" sx={{ mb: 2, mt: 2, color: 'primary.main' }}>
-            Remarks (Optional)
-          </Typography>
-        </Box>
-
-        <Box>
-          <TextField
-            fullWidth
-            label="Advisor Remarks"
-            value={formData.advisorRemarks}
-            onChange={(e) => handleChange('advisorRemarks', e.target.value)}
-            multiline
-            rows={3}
-            placeholder="Add advisor remarks..."
-          />
-        </Box>
-
-        <Box>
-          <TextField
-            fullWidth
-            label="Team Lead Remarks"
-            value={formData.teamLeadRemarks}
-            onChange={(e) => handleChange('teamLeadRemarks', e.target.value)}
-            multiline
-            rows={3}
-            placeholder="Add team lead remarks..."
-          />
-        </Box>
-
-        <Box>
-          <TextField
-            fullWidth
-            label="Sales Manager Remarks"
-            value={formData.salesManagerRemarks}
-            onChange={(e) => handleChange('salesManagerRemarks', e.target.value)}
-            multiline
-            rows={3}
-            placeholder="Add sales manager remarks..."
-          />
-        </Box>
-
-        <Box>
-          <TextField
-            fullWidth
-            label="General Manager Remarks"
-            value={formData.generalManagerRemarks}
-            onChange={(e) => handleChange('generalManagerRemarks', e.target.value)}
-            multiline
-            rows={3}
-            placeholder="Add general manager remarks..."
-          />
-        </Box>
-
-        <Box>
-          <TextField
-            fullWidth
-            label="Admin Remarks"
-            value={formData.adminRemarks}
-            onChange={(e) => handleChange('adminRemarks', e.target.value)}
-            multiline
-            rows={3}
-            placeholder="Add admin remarks..."
           />
         </Box>
 
