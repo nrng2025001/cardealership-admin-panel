@@ -257,6 +257,12 @@ export interface Enquiry {
   createdDate?: string;
   updatedDate?: string;
   notes?: string;
+  // Remarks fields
+  advisorRemarks?: string;
+  teamLeadRemarks?: string;
+  salesManagerRemarks?: string;
+  generalManagerRemarks?: string;
+  adminRemarks?: string;
 }
 
 export type EnquiryCategory = 'HOT' | 'LOST' | 'BOOKED';

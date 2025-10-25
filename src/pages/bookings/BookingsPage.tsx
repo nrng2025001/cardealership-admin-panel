@@ -797,6 +797,19 @@ export const BookingsPage: React.FC = () => {
                   Remarks
                 </Typography>
                 
+                {/* Debug: Log all remarks data */}
+                {(() => {
+                  console.log('🔍 [BOOKING DETAILS] All remarks data:', {
+                    advisorRemarks: viewingBooking.advisorRemarks,
+                    teamLeadRemarks: viewingBooking.teamLeadRemarks,
+                    salesManagerRemarks: viewingBooking.salesManagerRemarks,
+                    generalManagerRemarks: viewingBooking.generalManagerRemarks,
+                    adminRemarks: viewingBooking.adminRemarks,
+                    allKeys: Object.keys(viewingBooking)
+                  });
+                  return null;
+                })()}
+                
                 {/* Advisor Remarks */}
                 {viewingBooking.advisorRemarks && (
                   <Box sx={{ mb: 2, p: 2, bgcolor: 'primary.50', borderRadius: 1 }}>
@@ -861,9 +874,21 @@ export const BookingsPage: React.FC = () => {
                 {!viewingBooking.advisorRemarks && !viewingBooking.teamLeadRemarks && 
                  !viewingBooking.salesManagerRemarks && !viewingBooking.generalManagerRemarks && 
                  !viewingBooking.adminRemarks && (
-                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-                    No remarks added yet
-                  </Typography>
+                  <Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                      No remarks added yet
+                    </Typography>
+                    
+                    {/* Debug: Show all available fields */}
+                    <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold' }}>
+                        Debug - All available fields:
+                      </Typography>
+                      <Typography variant="caption" sx={{ display: 'block', mt: 1, fontFamily: 'monospace' }}>
+                        {Object.keys(viewingBooking).join(', ')}
+                      </Typography>
+                    </Box>
+                  </Box>
                 )}
               </Box>
             </Box>
