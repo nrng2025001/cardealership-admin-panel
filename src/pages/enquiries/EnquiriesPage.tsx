@@ -8,7 +8,10 @@ import {
   Button,
   Card,
   CardContent,
-  
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Chip,
   IconButton,
   Menu,
@@ -44,6 +47,7 @@ export const EnquiriesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
   const [selectedEnquiry, setSelectedEnquiry] = useState<Enquiry | null>(null);
+  const [viewingEnquiry, setViewingEnquiry] = useState<Enquiry | null>(null);
   const [filterAnchor, setFilterAnchor] = useState<null | HTMLElement>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -85,6 +89,10 @@ export const EnquiriesPage: React.FC = () => {
   const handleEditEnquiry = (enquiry: Enquiry) => {
     setSelectedEnquiry(enquiry);
     setFormOpen(true);
+  };
+
+  const handleViewEnquiry = (enquiry: Enquiry) => {
+    setViewingEnquiry(enquiry);
   };
 
   const handleFormSubmit = async (enquiryData: Partial<Enquiry>) => {
@@ -303,7 +311,7 @@ export const EnquiriesPage: React.FC = () => {
         searchable
         searchPlaceholder="Search enquiries..."
         searchFields={['customerName', 'customerEmail', 'customerPhone', 'requirement']}
-        onRowClick={(enquiry) => canManageEnquiries() && handleEditEnquiry(enquiry)}
+        onRowClick={(enquiry) => handleViewEnquiry(enquiry)}
       />
 
       {/* Form Dialog */}
@@ -319,6 +327,171 @@ export const EnquiriesPage: React.FC = () => {
           onCancel={() => setFormOpen(false)}
         />
       </FormDialog>
+
+      {/* Enquiry Details Dialog */}
+      <Dialog
+        open={Boolean(viewingEnquiry)}
+        onClose={() => setViewingEnquiry(null)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          Enquiry Details
+        </DialogTitle>
+        <DialogContent>
+          {viewingEnquiry && (
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 3, mt: 2 }}>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Customer Name</Typography>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  {viewingEnquiry.customerName}
+                </Typography>
+              </Box>
+              
+              <Box>
+                <Typography variant="caption" color="text.secondary">Customer Email</Typography>
+                <Typography variant="body1">
+                  {viewingEnquiry.customerEmail}
+                </Typography>
+              </Box>
+              
+              <Box>
+                <Typography variant="caption" color="text.secondary">Customer Phone</Typography>
+                <Typography variant="body1">
+                  {viewingEnquiry.customerContact}
+                </Typography>
+              </Box>
+              
+              <Box>
+                <Typography variant="caption" color="text.secondary">Preferred Model</Typography>
+                <Typography variant="body1">
+                  {viewingEnquiry.preferredModel || 'Not specified'}
+                </Typography>
+              </Box>
+              
+              <Box>
+                <Typography variant="caption" color="text.secondary">Budget</Typography>
+                <Typography variant="body1">
+                  {formatCurrency(viewingEnquiry.budget)}
+                </Typography>
+              </Box>
+              
+              <Box>
+                <Typography variant="caption" color="text.secondary">Status</Typography>
+                <Chip
+                  label={ENQUIRY_STATUSES.find(s => s.value === viewingEnquiry.status)?.label || viewingEnquiry.status}
+                  color={getStatusColor(viewingEnquiry.status)}
+                  size="small"
+                />
+              </Box>
+              
+              <Box sx={{ gridColumn: '1 / -1' }}>
+                <Typography variant="caption" color="text.secondary">Requirement</Typography>
+                <Typography variant="body1">
+                  {viewingEnquiry.requirement}
+                </Typography>
+              </Box>
+              
+              {viewingEnquiry.notes && (
+                <Box sx={{ gridColumn: '1 / -1' }}>
+                  <Typography variant="caption" color="text.secondary">Notes</Typography>
+                  <Typography variant="body1">
+                    {viewingEnquiry.notes}
+                  </Typography>
+                </Box>
+              )}
+
+              {/* Remarks Section */}
+              <Box sx={{ gridColumn: '1 / -1' }}>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Remarks
+                </Typography>
+                
+                {/* Advisor Remarks */}
+                {viewingEnquiry.advisorRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'primary.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="primary.main" sx={{ fontWeight: 'bold' }}>
+                      Advisor Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingEnquiry.advisorRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Team Lead Remarks */}
+                {viewingEnquiry.teamLeadRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'warning.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="warning.main" sx={{ fontWeight: 'bold' }}>
+                      Team Lead Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingEnquiry.teamLeadRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Sales Manager Remarks */}
+                {viewingEnquiry.salesManagerRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'info.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="info.main" sx={{ fontWeight: 'bold' }}>
+                      Sales Manager Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingEnquiry.salesManagerRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* General Manager Remarks */}
+                {viewingEnquiry.generalManagerRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'success.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="success.main" sx={{ fontWeight: 'bold' }}>
+                      General Manager Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingEnquiry.generalManagerRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Admin Remarks */}
+                {viewingEnquiry.adminRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'error.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="error.main" sx={{ fontWeight: 'bold' }}>
+                      Admin Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingEnquiry.adminRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Show message if no remarks */}
+                {!viewingEnquiry.advisorRemarks && !viewingEnquiry.teamLeadRemarks && 
+                 !viewingEnquiry.salesManagerRemarks && !viewingEnquiry.generalManagerRemarks && 
+                 !viewingEnquiry.adminRemarks && (
+                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                    No remarks added yet
+                  </Typography>
+                )}
+              </Box>
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setViewingEnquiry(null)}>Close</Button>
+          {canManageEnquiries() && (
+            <Button onClick={() => {
+              setSelectedEnquiry(viewingEnquiry);
+              setViewingEnquiry(null);
+              setFormOpen(true);
+            }} variant="contained">
+              Edit Enquiry
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

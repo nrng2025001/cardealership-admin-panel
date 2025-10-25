@@ -791,12 +791,81 @@ export const BookingsPage: React.FC = () => {
                   </Typography>
                 )}
               </Box>
-              {viewingBooking.advisorRemarks && (
-                <Box sx={{ gridColumn: '1 / -1' }}>
-                  <Typography variant="caption" color="text.secondary">Advisor Remarks</Typography>
-                  <Typography variant="body1">{viewingBooking.advisorRemarks}</Typography>
-                </Box>
-              )}
+              {/* Remarks Section */}
+              <Box sx={{ gridColumn: '1 / -1' }}>
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Remarks
+                </Typography>
+                
+                {/* Advisor Remarks */}
+                {viewingBooking.advisorRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'primary.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="primary.main" sx={{ fontWeight: 'bold' }}>
+                      Advisor Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingBooking.advisorRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Team Lead Remarks */}
+                {viewingBooking.teamLeadRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'warning.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="warning.main" sx={{ fontWeight: 'bold' }}>
+                      Team Lead Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingBooking.teamLeadRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Sales Manager Remarks */}
+                {viewingBooking.salesManagerRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'info.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="info.main" sx={{ fontWeight: 'bold' }}>
+                      Sales Manager Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingBooking.salesManagerRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* General Manager Remarks */}
+                {viewingBooking.generalManagerRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'success.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="success.main" sx={{ fontWeight: 'bold' }}>
+                      General Manager Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingBooking.generalManagerRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Admin Remarks */}
+                {viewingBooking.adminRemarks && (
+                  <Box sx={{ mb: 2, p: 2, bgcolor: 'error.50', borderRadius: 1 }}>
+                    <Typography variant="subtitle2" color="error.main" sx={{ fontWeight: 'bold' }}>
+                      Admin Remarks
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {viewingBooking.adminRemarks}
+                    </Typography>
+                  </Box>
+                )}
+                
+                {/* Show message if no remarks */}
+                {!viewingBooking.advisorRemarks && !viewingBooking.teamLeadRemarks && 
+                 !viewingBooking.salesManagerRemarks && !viewingBooking.generalManagerRemarks && 
+                 !viewingBooking.adminRemarks && (
+                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                    No remarks added yet
+                  </Typography>
+                )}
+              </Box>
             </Box>
           )}
         </DialogContent>

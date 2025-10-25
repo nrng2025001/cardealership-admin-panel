@@ -122,20 +122,6 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ type, message, timestamp })
     }
   };
 
-  // Check if message contains role information
-  const isRoleMessage = message.includes('Advisor:') || message.includes('Team Lead:') || 
-                       message.includes('Sales Manager:') || message.includes('General Manager:') || 
-                       message.includes('Admin:');
-
-  // Get role color
-  const getRoleColor = (message: string) => {
-    if (message.includes('Advisor:')) return 'primary.main';
-    if (message.includes('Team Lead:')) return 'warning.main';
-    if (message.includes('Sales Manager:')) return 'info.main';
-    if (message.includes('General Manager:')) return 'success.main';
-    if (message.includes('Admin:')) return 'error.main';
-    return 'text.primary';
-  };
 
   return (
     <ListItem sx={{ px: 0 }}>
@@ -143,38 +129,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ type, message, timestamp })
         {getActivityIcon()}
       </ListItemIcon>
       <ListItemText
-        primary={
-          <Box>
-            {isRoleMessage ? (
-              <Box>
-                <Typography 
-                  variant="body2" 
-                  component="span" 
-                  sx={{ 
-                    fontWeight: 'bold',
-                    color: getRoleColor(message)
-                  }}
-                >
-                  {message.split(':')[0]}:
-                </Typography>
-                <Typography 
-                  variant="body2" 
-                  component="span" 
-                  sx={{ 
-                    ml: 1,
-                    color: 'text.primary'
-                  }}
-                >
-                  {message.split(':').slice(1).join(':').trim()}
-                </Typography>
-              </Box>
-            ) : (
-              <Typography variant="body2" color="text.primary">
-                {message}
-              </Typography>
-            )}
-          </Box>
-        }
+        primary={message}
         secondary={formatDateTime(timestamp)}
         primaryTypographyProps={{ variant: 'body2' }}
         secondaryTypographyProps={{ variant: 'caption' }}
